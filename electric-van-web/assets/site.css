@@ -770,3 +770,10 @@ html.lb-lock { overflow: hidden; }
 .contact-form .botcheck { display: none !important; }
 .form-status { min-height: 1.4em; color: var(--text-muted); }
 .form-status.is-error { color: var(--text); font-weight: 600; }
+
+/* ---- language before (and without) JS ---------------------------------------
+   The head script sets html[data-lang] before the first paint, Czech by default;
+   site.js keeps it in step with lang.js. Without JS the attribute is missing and
+   Czech shows. lang.js's own rules then agree with these. */
+html:not([data-lang="en"]) .lang-en { display: none !important; }
+html[data-lang="en"] .lang-cs { display: none !important; }

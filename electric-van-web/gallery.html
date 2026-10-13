@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="auto"
+<html lang="cs" data-theme="auto"
       data-title-en="Gallery - Electric Van Fam"
       data-title-cs="Galerie - Electric Van Fam">
   <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gallery - Electric Van Fam</title>
+    <title>Galerie - Electric Van Fam</title>
     <meta name="description" content="Photos from the road and from the Kia PV5 camper build: campsites, campervan events and electric road trips across Europe, from the Electric Van Fam Instagram." />
     <meta property="og:title" content="Gallery - Electric Van Fam" />
     <meta property="og:description" content="Moments from the road and from the Kia PV5 camper build, from our Instagram." />
@@ -23,6 +23,11 @@
         var q = new URLSearchParams(location.search);
         var ls = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
         d.setAttribute("data-theme", q.get("theme") || ls("pers-ui-theme") || "light");
+        // Czech is the default language; ?lang=en or a stored choice gives English.
+        var lang = q.get("lang") || ls("pers-ui-lang") || "cs";
+        lang = lang === "en" ? "en" : "cs";
+        d.setAttribute("data-lang", lang);
+        d.lang = lang;
         var tpl = q.get("template");
         if (tpl && /^(jdsign|aurora|bento|brutalist|devdark|scholarly)$/.test(tpl)) d.setAttribute("data-template", tpl);
       })();

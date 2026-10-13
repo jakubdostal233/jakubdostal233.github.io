@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="auto"
+<html lang="cs" data-theme="auto"
       data-title-en="Electric Van Fam - family adventures in an electric camper van"
       data-title-cs="Electric Van Fam - rodinná dobrodružství v elektrické obytné dodávce">
   <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Electric Van Fam - family adventures in an electric camper van</title>
+    <title>Electric Van Fam - rodinná dobrodružství v elektrické obytné dodávce</title>
     <meta name="description" content="Electric Van Fam: a family converting a brand-new Kia PV5 into an electric camper van, with road trips and camping across Europe. New video every Thursday." />
     <meta property="og:title" content="Electric Van Fam" />
     <meta property="og:description" content="Family adventures, electric vanlife and the camper conversion of a Kia PV5." />
@@ -23,6 +23,11 @@
         var q = new URLSearchParams(location.search);
         var ls = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
         d.setAttribute("data-theme", q.get("theme") || ls("pers-ui-theme") || "light");
+        // Czech is the default language; ?lang=en or a stored choice gives English.
+        var lang = q.get("lang") || ls("pers-ui-lang") || "cs";
+        lang = lang === "en" ? "en" : "cs";
+        d.setAttribute("data-lang", lang);
+        d.lang = lang;
         var tpl = q.get("template");
         if (tpl && /^(jdsign|aurora|bento|brutalist|devdark|scholarly)$/.test(tpl)) d.setAttribute("data-template", tpl);
       })();

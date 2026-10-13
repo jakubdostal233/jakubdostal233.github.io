@@ -5,7 +5,7 @@
    links to YouTube, a photo links to its full-size file.
 
    Features (inspiration-site behaviour in brackets):
-   - language: EN/CZ toggle, default from the browser, ?lang= deep link
+   - language: Czech by default, EN/CZ toggle, ?lang= deep link
    - theme: light by default; light / auto / dark control, labels follow the language
    - phone menu: dropdown panel under the header row (slide down / up)
    - lightbox: photos and YouTube videos, arrows, keys, swipe, wrap-around
@@ -58,6 +58,7 @@
   var ATTRS = ["aria-label", "title", "alt", "placeholder", "content"];
   function applyLangAttributes(l) {
     html.lang = l === "cs" ? "cs" : "en";
+    html.setAttribute("data-lang", html.lang); // the pre-paint language rules in site.css
     var title = html.getAttribute("data-title-" + l);
     if (title) document.title = title;
     ATTRS.forEach(function (attr) {
@@ -86,15 +87,6 @@
     document.dispatchEvent(new CustomEvent("evf:lang", { detail: l }));
   }
 
-  function browserLang() {
-    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
-    for (var i = 0; i < list.length; i++) {
-      var code = String(list[i]).toLowerCase();
-      if (code.indexOf("cs") === 0 || code.indexOf("sk") === 0) return "cs";
-      if (code.indexOf("en") === 0) return "en";
-    }
-    return "en";
-  }
 
   // The site opens light; a visitor switches to dark (or to the system's
   // setting) with the theme control, and that choice is remembered. theme.js
@@ -109,7 +101,7 @@
   if (window.persLang) {
     persLang.init({
       container: document.getElementById("lang-mount"),
-      defaultLang: browserLang(),
+      defaultLang: "cs", // Czech first; English is one click away and remembered
       onLangChange: applyLangAttributes
     });
     // ?lang=cs|en deep-links a language. Applied after init because lang.js
